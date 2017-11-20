@@ -1,0 +1,40 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{3}{section.1}
+\contentsline {section}{\numberline {2}Planificaci\IeC {\'o}n}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}User Story 1}{5}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Descripci\IeC {\'o}n}{5}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Criterio de aceptaci\IeC {\'o}n}{5}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Tareas}{5}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Dimensiones}{5}{subsubsection.2.1.4}
+\contentsline {subsection}{\numberline {2.2}User Story 2}{6}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Descripci\IeC {\'o}n}{6}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Criterio de aceptaci\IeC {\'o}n}{6}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Tareas}{6}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}Dimensiones}{6}{subsubsection.2.2.4}
+\contentsline {subsection}{\numberline {2.3}User Story 3}{7}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Descripci\IeC {\'o}n}{7}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Criterio de aceptaci\IeC {\'o}n}{7}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Tareas}{7}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}Dimensiones}{7}{subsubsection.2.3.4}
+\contentsline {section}{\numberline {3}Dise\IeC {\~n}o}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Ingenierio Principal}{9}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Excavaci\IeC {\'o}n de parcelas}{12}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Equipo de Excavaci\IeC {\'o}n}{13}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Gesti\IeC {\'o}n de RIGs}{14}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Excavaci\IeC {\'o}n de una parcela en particular}{15}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Producci\IeC {\'o}n}{17}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Elecci\IeC {\'o}n de Pozos a extraer}{18}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Extracci\IeC {\'o}n de Pozos}{18}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Construcci\IeC {\'o}n}{21}{subsubsection.3.3.3}
+\contentsline {paragraph}{\numberline {3.3.3.1}Agenda de Construcci\IeC {\'o}n}{21}{paragraph.3.3.3.1}
+\contentsline {paragraph}{\numberline {3.3.3.2}Comienzo y Seguimiento de Construcci\IeC {\'o}n}{22}{paragraph.3.3.3.2}
+\contentsline {paragraph}{\numberline {3.3.3.3}Integraci\IeC {\'o}n de nueva infraestructura de Producci\IeC {\'o}n al circuito productivo}{23}{paragraph.3.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}Actualizaci\IeC {\'o}n de Medidores de Presi\IeC {\'o}n}{26}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}Reinyecci\IeC {\'o}n}{28}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Descripci\IeC {\'o}n}{28}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Conocimiento del material disponible y inyecci\IeC {\'o}n del mismo en los pozos}{29}{subsubsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.3}Venta de Gas}{30}{subsubsection.3.4.3}
+\contentsline {subsubsection}{\numberline {3.4.4}Compra de agua}{30}{subsubsection.3.4.4}
+\contentsline {subsubsection}{\numberline {3.4.5}Diagramas de secuencias}{31}{subsubsection.3.4.5}
+\contentsline {subsection}{\numberline {3.5}Anexos}{42}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Notas sobre diagramas}{42}{subsubsection.3.5.1}

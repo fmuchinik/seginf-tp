@@ -1,0 +1,57 @@
+\documentclass[10pt, a4paper,english,spanish]{article}
+%\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+\usepackage{caratula}
+\usepackage{fullpage} %small margins
+\usepackage[parfill]{parskip} %genera saltos entre parrafos
+\usepackage[justification=centering]{caption}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{colortbl}
+\usepackage[colorlinks=true, linkcolor=black]{hyperref} %Links + Links en el índice
+\definecolor{gray}{gray}{0.35}
+\definecolor{brightgreen}{rgb}{0.4, 1.0, 0.0}
+\definecolor{ReallyLightGrey}{gray}{0.93}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{amsmath} %big brackets
+\usepackage[pdftex]{graphicx}
+\usepackage[bottom]{footmisc}
+\lstset{
+    numbers=left,
+    breaklines=true,
+    tabsize=2,
+    basicstyle=\ttfamily\color{gray},
+}
+\setlength{\parindent}{8pt}
+\usepackage{mathtools}
+\usepackage[margin=50pt]{geometry}
+\usepackage{amsfonts}
+\usepackage{flafter}
+\usepackage{float}
+\usepackage{pdflscape}
+\restylefloat{table}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\begin{document}
+
+\materia{Seguridad de la información}
+\submateria{Segundo Cuatrimestre de 2017}
+\titulo{Trabajo Práctico}
+\subtitulo{Enunciado 1}
+
+\integrante{Federico De Rocco}{403/13}{fede.183@hotmail.com}
+\integrante{Francisco Muchinik}{238/14}{franmuchinik@hotmail.com}
+\integrante{Yamil Alis}{742/00}{yamil.alis@gmail.com}
+\maketitle
+\newpage
+
+\tableofcontents
+
+
+\newpage
+\input{intro.tex}
+\newpage
+\input{anexos.tex}
+\end{document}
