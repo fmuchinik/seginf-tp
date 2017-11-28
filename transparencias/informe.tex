@@ -1,7 +1,11 @@
 \documentclass[10pt, a4paper,english,spanish]{beamer}
+
 \usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
 \usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
-\title[Presentaci贸n]{Presentaci贸n}
+\usepackage{graphicx}
+
+
+\title[Presentaci\'on]{Presentaci\'on}
 \subtitle{Seguridad inform\'atica} % Opcional
 \author{Alis Yamil, De Rocco Federico y Muchinik Francisco}
 \institute{UBA} % Opciona
@@ -13,13 +17,23 @@
 \begin{frame}
 \frametitle{Contenido}
 \begin{itemize}
-\item Introducci贸n
-\item Protecci贸n de logs
-\item MAC
-\item Forward Integrity
-\item Nuestra implementaci贸n
-\item Alternativas
+  \item Implementaci\'on de syslog server con Forward Integrity
+  \begin{itemize}
+    \item Introducci\'on
+    \item Protecci\'on de logs
+    \item MAC
+    \item Forward Integrity
+    \item Nuestra implementaci\'on
+    \item Alternativas
+   \end{itemize}
+  \item Investigaci\'on sobre \'arboles de Merkle
+  \begin{itemize}
+    \item Definici\'on
+    \item Principales caracter\'isticas
+    \item Usos
+   \end{itemize}
 \end{itemize}
+
 \end{frame}
 
 \begin{frame}
@@ -139,5 +153,88 @@ Demo
 \end{itemize}
 \end{itemize}
 \end{frame}
+
+
+% %%%         merkle trees 
+\begin{frame}
+\frametitle{Investigaci\'on sobre \'arboles de Merkle o \'arboles de hash}
+\begin{itemize}
+
+\item Definici\'on: Es un \'arbol donde cada nodo contiene el hash de los hashes de sus hijos y las hojas contienen el hash del valor a proteger. En el nodo ra\'iz queda el hash que representa a todo el \'arbol, es decir que si alguno de los nodos modifica su hash invalidar\'a el hash de los nodos padres. 
+\item Fue patentado por Ralph Merkle en 1979, como m\'etodo de firmas digitales para robustecer el sistema criptogr\'afico presentado Diffie, Hellman y \'el dos a\~nos antes.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Estructura de Hash Tree}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{imagenes/hash_tree.png}
+ % \caption{\'Arbol de Hash}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Principales caracter\'isticas}
+
+\begin{itemize}
+
+\item Merkle Audit Paths: Permite verificar si un bloque de datos protegido fue modificado con \'orden log(n), donde n es la cantidad de bloques de datos totales del \'arbol. As\'i s\'olo requiere calcular 2 * log2(n) hashes, correspondientes al camino desde la ra\'iz al valor a validar junto con los hijos de cada nodo del camino. La misma operaci\'on en listas de hash tiene orden n.
+
+\item Merkle Consistency Proofs: Dada una lista de los primeros m bloques de datos permite verificar no se hayan borrado o agregado algunos, o modificado el \'orden entre ellos. Esta es una propiedad \'util para mejorar el syslog server. 
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Usos}
+
+\begin{itemize}
+
+\item Certificate Transparency: Framework open source para el monitoreo y auditor\'ia de certificados digitales. A partir de un registro p\'ublico de la emisi\'on de los certificados los clientes pueden verificar su validez. 
+
+% imagenes de arquitectura y arbol, y m醩 detalles
+
+\item Redes peer-2-peer
+\begin{itemize}
+
+\item BitTorrent: Valida cada bloque descargado independientemente del archivo completo.
+\item Bitcoin: Optimiza el tama\~no del blockchain guardando s\'olo el hash root de las transacciones cada bloque. Permite a los clientes escuchar de forma eficiente la publicaci\'on de transacciones asociadas a una billetera en particular. 
+\item Otros: Filesystems como IPFS, Sistemas de control de versiones como Git o Mercurial, bases de datos NoSQL como Cassandra o Dynamo.
+
+% imagen del arbolitos del bloque de bitcoin
+
+\end{itemize}
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Referencias}
+
+
+\begin{itemize}
+
+\item Wikipedia \(https://en.wikipedia.org/wiki/Merkle_tree\)
+\item Certificate Transparency RFC \(https://tools.ietf.org/html/rfc6962\)
+\item 
+
+\end{itemize}
+\end{frame}
+
 
 \end{document}
