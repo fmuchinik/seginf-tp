@@ -1,0 +1,143 @@
+\documentclass[10pt, a4paper,english,spanish]{beamer}
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+\title[Presentación]{Presentación}
+\subtitle{Seguridad inform\'atica} % Opcional
+\author{Alis Yamil, De Rocco Federico y Muchinik Francisco}
+\institute{UBA} % Opciona
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Contenido}
+\begin{itemize}
+\item Introducción
+\item Protección de logs
+\item MAC
+\item Forward Integrity
+\item Nuestra implementación
+\item Alternativas
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introducción}
+\begin{itemize}
+\item Log: Es un registro que contiene los eventos ocurridos en un sistema.
+\begin{itemize}
+\item Esta información puede ser utilizada para detectar la existencia de ataques.
+\item Un atacante podría evitarlo modificando estos registros.
+\item Auditoría de logs: Método que permite averiguar si los logs fueron alterados.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Protección de logs}
+\begin{itemize}
+\item Trusted Computing Base (TCB): Es el componente responsable de realizar el logging. Si se conserva la integridad del mismo,
+los registros deberían ser seguros. Problema: no siempre están libres de bugs que permitan al atacante obtener
+permisos.
+\item Remote logging: Consiste en enviar los registros a otros equipos que los resguarden. Con esta medida
+el atacante deberá conocer y vulnerar todos estos equipos para poder ocultar el ataque.
+\item Imprimirlos: Una forma clásica de proteger los logs era imprimirlos de forma continua y ordenada.
+Problemas:
+\begin{itemize}
+\item El sistema que se use para la impresión debe darle prioridad a los logs para que la impresora no se vea sobrecargada.
+\item Un análisis de actividades sospechosas es mucho más difícil.
+\item Se puede comprometer la impresora o las impresiones.
+\end{itemize}
+\item Write Once Read Multiple (WORM): Son discos ópticos de poco ancho de banda de escritura. Dichos discos
+se extraen una vez que están llenos. Problema: se puede comprometer la integridad si se sustituyen uno o más discos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{MAC}
+\begin{itemize}
+\item Se calcula un MAC para cada log usando un secreto. Esto permite impedir que, en desconocimiento de ese secreto,
+el atacante pueda modificar el log. Si lo hace tendría que recalcular el MAC. Problemas:
+\begin{itemize}
+  \item En ausencia de un continuo uso de remote logging este mecanismo no asegura la integridad de los
+  registros viejos. Esto se debe a que el secreto es usado en el sistema que realiza el logging. Si este
+  se compromete, también se obtiene el secreto.
+  \item El remote logging tampoco es perfecto ya que la seguridad de estos hosts pasa a ser crítica.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Integrity}
+\begin{itemize}
+\item Básicamente queremos generar un MAC para cada log que no pueda ser modificado sin quedar en evidencia
+aunque el sistema que genera los logs sea comprometido.
+\item La idea es que el sistema no repita la clave utilizada en los pasos anteriores. Además, una vez calculado
+el MAC se debe descartar dicha clave para evitar que se la pueda obtener.
+\item Una forma de asegurar esta propiedad es generar la clave actual en base a la inmediatamente anterior.
+Tenemos para el log número i la clave $K_{i}$ que se obtiene aplicándole una función no reversible a
+$K_{i-1}$. Una vez calculada $K_{i}$, se borra $K_{i-1}$.
+\item Si el atacante obtiene control del sistema en el momento que el siguiente log es el número i
+obtendría la clave $K_{i}$. Con la cual no puede obtener la $K_{i-1}$ ni ninguna de las anteriores que
+lo delatan.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Forward Integrity}
+\begin{itemize}
+\item Este sistema deja implícito que debe existir un secreto inicial y si este se compromete se pierde la
+seguridad. Por esto el secreto inicial debe estar guardado en un lugar seguro.
+\item A la hora de validar el estado de los registros se debe aportar el secreto inicial. Se le aplica a
+este la función no reversibles y se calcula el MAC para el primer log. Se repite el proceso para los
+siguientes.
+\item El componente que realice la verificación debe estar separado el que genera los logs.
+\item Es igualmente válido utilizar una clave aleatoria para cada entrada en el registro. Problema:
+Se deben guardar todas las claves utilizadas(una por log).
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nuestra implementación}
+\begin{itemize}
+\item Utilizamos un secreto inicial, elegido por el administrador del equipo, para iniciar el servidor syslog
+y realizar la verificación de la integridad de los logs en cualquier momento.
+\item Los registros de eventos se guardan en un ".log" de solo lectura para un usuario normal.
+\item Cada verificación realiza el procedimiento descripto para todos los logs en el registro.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nuestra implementación}
+%Imagenes
+\end{frame}
+
+\begin{frame}
+\frametitle{Nuestra implementación}
+Demo
+\end{frame}
+
+\begin{frame}
+\frametitle{Alternativas}
+\begin{itemize}
+\item Sistema de clave pública
+%Imagen de clave publica y verificación
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Alternativas en la verificación}
+\begin{itemize}
+\item Existen dos alternativas a la hora de validar los logs:
+\begin{itemize}
+\item Validarlos todos(nuestra opción).
+\item Validar solamente los que no fueron validados anteriormente.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}
