@@ -175,11 +175,11 @@ Sistema de clave pública: consiste en generar claves privadas para firmar los l
   \item Criptografía de curva elíptica: es una alternativa a RSA para generar pares de claves para
   criptografía asimétrica. La ventaja es que las claves generadas son cortar, ideales para las entradas
   del registro.
-  \item Identity-based signature(IBS): permite obtener las claves publicas derivandolas de bits puntuales en
-  un string y en la clave pública de un denerador de claves privadas(PKG), la privada solo puede ser extraida
+  \item Identity-based signature(IBS): permite obtener las claves públicas derivandolas de bits puntuales en
+  un string y en la clave pública de un generador de claves privadas(PKG), la privada solo puede ser extraida
   de esa cadena de caracteres y de la clave privada del PKG. Con esto, lo que se necesita
   para la verificación es la siguiente clave pública del PKG. Con el otro modelo tenía que enumerar las claves
-  públicas y pasarlas todas
+  públicas y pasarlas todas.
 \end{itemize}
 \end{frame}
 
@@ -189,7 +189,7 @@ Sistema de clave pública: consiste en generar claves privadas para firmar los l
 \item Existen dos alternativas a la hora de validar los logs:
 \begin{itemize}
 \item Validarlos todos(nuestra opción).
-\item Validar solamente los que no fueron validados anteriormente(acumulativamente).
+\item Validar el último habiendo constrido el valor de verificación de forma acumulativa.
 \end{itemize}
 \end{itemize}
 \end{frame}
