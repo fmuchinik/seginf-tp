@@ -235,30 +235,73 @@ Sistema de clave pública: consiste en generar claves privadas para firmar los l
 
 
 \begin{frame}
-\frametitle{Usos}
+\frametitle{Algunos usos}
 
 \begin{itemize}
 
 \item Certificate Transparency: Framework open source para el monitoreo y auditor\'ia de certificados digitales. A partir de un registro p\'ublico de la emisi\'on de los certificados los clientes pueden verificar su validez.
 
-% imagenes de arquitectura y arbol, y m�s detalles
-
-\item Redes peer-2-peer
+\item Redes p2p
 \begin{itemize}
 
-\item BitTorrent: Valida cada bloque descargado independientemente del archivo completo.
 \item Bitcoin: Optimiza el tama\~no del blockchain guardando s\'olo el hash root de las transacciones cada bloque. Permite a los clientes escuchar de forma eficiente la publicaci\'on de transacciones asociadas a una billetera en particular.
+\item BitTorrent: Valida cada bloque descargado independientemente del archivo completo.
 \item Otros: Filesystems como IPFS, Sistemas de control de versiones como Git o Mercurial, bases de datos NoSQL como Cassandra o Dynamo.
 
-% imagen del arbolitos del bloque de bitcoin
-
 \end{itemize}
 
 \end{itemize}
-
 
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Usos: Certificate Transparency}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{imagenes/ct_system.png}
+  \caption{Arquitectura}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Usos: Certificate Transparency}
+
+\begin{figure}
+\centering
+  \includegraphics[width=.45\linewidth]{imagenes/ct_hash_1.png}
+  \includegraphics[width=.45\linewidth]{imagenes/ct_hash_2.png}
+  \caption{Construcci\'on incremental del \'arbol}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Usos: Bitcoin}
+
+\begin{figure}
+\centering
+  \includegraphics[width=.60\linewidth]{imagenes/blockchain.png}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Usos: Bitcoin}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\linewidth]{imagenes/mt_efficiency.png}
+\end{figure}
+
+En esta tabla se puede observar la eficiencia del \'arbol de Merkle seg\'un aumenta el camino de Merkle para validar que una transacci\'on es parte de un bloque.
+
+As\'i un nodo puede bajarse s\'olo los bloques de los headers (80 bytes por bloque) para esa validaci\'on y evita bajarse el blockchain completo que puede de varios gigabytes. Estos nodos, usados s\'olo para verificaci\'on de transacciones se llama simplified payment verification (nodos SPV). 
+
+\end{frame}
 
 
 
@@ -269,10 +312,14 @@ Sistema de clave pública: consiste en generar claves privadas para firmar los l
 
 \begin{itemize}
 
-\item Wikipedia \(https://en.wikipedia.org/wiki/Merkle_tree\)
-\item Certificate Transparency RFC \(https://tools.ietf.org/html/rfc6962\)
-\item Forward Integrity For Secure Audit Logs de Mihir Bellare y Bennet S. Yee
 \item Logcrypt: Forward Security and Public Verification for Secure Audit Logs de Jason E. Holt
+\item Forward Integrity For Secure Audit Logs de Mihir Bellare y Bennet S. Yee
+
+\item Wikipedia. Merkle Tree
+\item Certificate Transparency RFC 6962 
+
+\item Mastering Bitcoin. Andreas M. Antonopoulos. Cap\'itulo 7.
+
 
 \end{itemize}
 \end{frame}
