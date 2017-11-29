@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.11.11)  26 NOV 2017 17:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.11.11)  28 NOV 2017 17:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -766,12 +766,7 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
 \@float@every@table=\toks32
-
-
-LaTeX Warning: Unused global option(s):
-    [beamer].
-
-(./informe.aux
+ (./informe.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
@@ -854,16 +849,16 @@ LaTeX Info: Redefining \nameref on input line 37.
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
-* paper: <default>
+* paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(50.0pt, 514.295pt, 50.0pt)
-* v-part:(T,H,B)=(50.0pt, 694.96999pt, 50.0pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=514.295pt
-* \textheight=694.96999pt
+* h-part:(L,W,R)=(50.0pt, 497.50787pt, 50.0pt)
+* v-part:(T,H,B)=(50.0pt, 745.04684pt, 50.0pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=497.50787pt
+* \textheight=745.04684pt
 * \oddsidemargin=-22.26999pt
 * \evensidemargin=-22.26999pt
 * \topmargin=-22.26999pt
@@ -871,7 +866,7 @@ LaTeX Info: Redefining \nameref on input line 37.
 * \headsep=0.0pt
 * \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
+* \marginparwidth=57.0pt
 * \marginparsep=11.0pt
 * \columnsep=10.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
@@ -923,7 +918,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 48--48
  []
 
 
-Overfull \hbox (25.71631pt too wide) in paragraph at lines 48--48
+Overfull \hbox (24.8769pt too wide) in paragraph at lines 48--48
 [][][] 
  []
 
@@ -1016,9 +1011,9 @@ Package rerunfilecheck Info: File `informe.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 57.
  ) 
 Here is how much of TeX's memory you used:
- 11411 strings out of 494796
- 167656 string characters out of 6177330
- 279446 words of memory out of 5000000
+ 11412 strings out of 494796
+ 167671 string characters out of 6177330
+ 279378 words of memory out of 5000000
  14569 multiletter control sequences out of 15000+600000
  7931 words of font info for 31 fonts, out of 8000000 for 9000
  85 hyphenation exceptions out of 8191
@@ -1031,7 +1026,7 @@ f-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmtt10.pfb>
-Output written on informe.pdf (2 pages, 455576 bytes).
+Output written on informe.pdf (2 pages, 455582 bytes).
 PDF statistics:
  58 PDF objects out of 1000 (max. 8388607)
  43 compressed objects within 1 object stream
