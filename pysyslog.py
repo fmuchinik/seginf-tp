@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 LOG_FILE = 'youlogfile.log'
-HOST, PORT = "0.0.0.0", 514
+HOST, PORT = "0.0.0.0", 5514
 
 
 import logging
