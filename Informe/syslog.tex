@@ -1,17 +1,13 @@
 \subsection{Servidor syslog con forward integrity}
-Para nuestro servidor syslog utilizamos \hyperlink{https://gist.github.com/marcelom/4218010 }{https://gist.github.com/marcelom/4218010} y, sobre este, implementamos nuestro 
-mecanismo de logging seguro. Nos basamos en el paper [2] para construir nuestra solución. A continuación, describiremos nuestra implementación.
-Generamos un MAC para cada log que no pueda ser modificado sin quedar en evidencia
-aunque el sistema que genera los logs sea comprometido. La idea es que el sistema no repita la clave utilizada en los pasos anteriores. Una vez calculado
-el MAC se debe descartar dicha clave para evitar que se la pueda obtener. Este proceso se muestra en la siguiente imagen:
+Para nuestro servidor syslog utilizamos \cite{bio6} y, sobre este, implementamos nuestro 
+mecanismo de logging seguro. Nos basamos en el paper \cite{bio2} para construir nuestra solución. A continuación, describiremos en detalle nuestra implementación.
+
+La generación de cada secreto para el calculo del MAC consiste en aplicarle a cada secreto intermedio(empezando por el inicial) una función de hash. Notece que las funciones de hash seguras poseen la caracteristica de ser no reversibles, por lo tanto, no se debería poder obtener los secretos anteriores al actual en un tiempo razonable. Esto ultimo nos garantiza la propiedad de forward integrity. Este proceso se muestra en la siguiente imagen:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{imagenes/MAC.png}
 \end{figure}
-Para asegurar la propiedad descripta, generamos la clave actual en base a la inmediatamente anterior como se explica en [1].
-Tenemos para el log número i la clave $K_{i}$ que se obtiene aplicándole una función no reversible a
-$K_{i-1}$. Una vez calculada $K_{i}$, se borra $K_{i-1}$. Esto último requiere que el FI sea rápido. Si el atacante obtiene control del sistema en el momento que el siguiente log es el número i,
-obtendría la clave $K_{i}$. Con la cual no puede regenerar $K_{i-1}$ ni ninguna de las anteriores.
+
 A la hora de verificar el estado de un registro en particular calculamos su clave en la cadena de hash.
 Al log guardado le aplicamos la función de hash con la que obtenemos el MAC. Si este no coincide con el almacenado,
 el registro fue modificado. La siguiente imagen corresponde al proceso de verificación:
@@ -19,7 +15,8 @@ el registro fue modificado. La siguiente imagen corresponde al proceso de verifi
 \centering
 \includegraphics[scale=1]{imagenes/Verification.png}
 \end{figure}
-Omitimos la posibilidad de utilizar cifrado en los logs.
+Omitimos la posibilidad de utilizar cifrado en los logs. Nos limitamos a señalar que se puede garantizar confidencialidad en el contenido de los registros utilizando cada secreto intermedio para encriptar el log, además de para generar su MAC.
+
 Nuestra implementación tiene las siguientes particularidades:
 \begin{itemize}
 \item Utilizamos un secreto inicial, elegido por el administrador del equipo, para iniciar el servidor syslog.

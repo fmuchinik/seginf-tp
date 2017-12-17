@@ -9,14 +9,14 @@ Con esto en cuenta, un atacante tiene motivacíón para intentar borrar sus huel
 \subsection{Protección de Logs}
 
 El Trusted Computing Base (TCB) es el componente responsable de realizar el logging. 
-Si se conserva la integridad del mismo, los registros deberı́an ser seguros. 
+Si se conserva la integridad del mismo, los registros deberián ser seguros. 
 Sin embargo, no siempre están libres de bugs que permitan al atacante obtener permisos, o puede ser vulnerado por el atacante solamente porque ya tiene acceso al resto del sistema. Por esto, no conviene asumir que tendremos un TCB seguro.
 Hay, sin embargo, opciones de TCB más seguras:
 
 \subsubsection{Imprimirlos}
 
 Una forma clásica de proteger los logs era imprimirlos de forma continua y ordenada. Sin embargo, el sistema que se use para la impresión debe darle prioridad a los logs para que la impresora no se vea sobrecargada.
-Un análisis de actividades sospechosas es mucho más difı́cil.
+Un análisis de actividades sospechosas es mucho más difícil.
 Se puede comprometer la impresora o las impresiones.
 
 \subsubsection{Write Once Read Multiple (WORM)}
@@ -24,7 +24,7 @@ Son discos ópticos de poco ancho de banda de escritura. Dichos discos se extrae
 están llenos. Se puede comprometer la integridad si se sustituyen uno o más discos. Además, es impráctico si el volumen de datos y cantidad de consultas es alto.
 
 \subsubsection{Remote Logging}
-Consiste en enviar los registros a otros equipos que los resguarden. Con esta medida el atacante deberá conocer y vulnerar todos estos equipos para poder ocultar el ataque. En este caso, hay que analizar el costo de un servidor externo, y la latencia y disponibilidad, asumiendo que los logs quieren ser consultados frecuentemente. Ademas, como se mencionó, esto no garantiza seguridad necesariamente, dado que el servidor externo podría ser vulnerado también, y vuelve la seguridad de este host un asunto crı́tico.
+Consiste en enviar los registros a otros equipos que los resguarden. Con esta medida el atacante deberá conocer y vulnerar todos estos equipos para poder ocultar el ataque. En este caso, hay que analizar el costo de un servidor externo, y la latencia y disponibilidad, asumiendo que los logs quieren ser consultados frecuentemente. Ademas, como se mencionó, esto no garantiza seguridad necesariamente, dado que el servidor externo podría ser vulnerado también, y vuelve la seguridad de este host un asunto crítico.
 
 Se puede llegar a combinar con replicación local, si se desea tener acceso rápido, para un uso de los logs distinto a auditoría, como puede ser estadísticas de uso.
 
@@ -62,7 +62,7 @@ También es importante considerar cada cuanto cambiar el secreto. El período m�
 Para manejar períodos mayores, se pueden introducir ciertas reglas para hacer más seguro el sistema, como puede ser obligatoriamente cambiar el secreto luego de una entrada de log de nivle crítico.
 
 
-Este sistema deja implı́cito que debe existir un secreto inicial y si
+Este sistema deja implícito que debe existir un secreto inicial y si
 este se compromete se pierde la seguridad. Por esto el secreto inicial
 debe estar guardado en un lugar seguro.
 I A la hora de verificar el estado de un registro en particular se debe
