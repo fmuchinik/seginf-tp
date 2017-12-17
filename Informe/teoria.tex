@@ -1,0 +1,73 @@
+\subsection{Logs}
+
+Un log es un registro que contiene los eventos ocurridos en un sistema.
+Idealmente, todo evento del sistema, en las distintas capas de la arquitectura, se registra en el log.
+
+Con esto, entre otras cosas, se puede auditar el sistema para detectar la existencia de ataques. Por ejemplo, si encontramos en el log del sistema un dump de una base de datos sensible, podríamos estar ante un ataque.
+Con esto en cuenta, un atacante tiene motivacíón para intentar borrar sus huellas. Idealmente, éste querría que nadie se entere de que hubo un ataque, porque así los agujeros de seguridad no serán detectados y arreglados, dejando el sistema vulnerable para un futuro ataque. Para esto, debería borrar de los logs únicamente sus acciones. De ser esto imposible, podría intentar simplemente borrar todos los logs. Intentar prevenir esto último, asumiendo un ataque con control completo del sistema, es impráctico, con lo que nos centraremos en proteger los logs de sufrir modificaciones.
+
+\subsection{Protección de Logs}
+
+El Trusted Computing Base (TCB) es el componente responsable de realizar el logging. 
+Si se conserva la integridad del mismo, los registros deberı́an ser seguros. 
+Sin embargo, no siempre están libres de bugs que permitan al atacante obtener permisos, o puede ser vulnerado por el atacante solamente porque ya tiene acceso al resto del sistema. Por esto, no conviene asumir que tendremos un TCB seguro.
+Hay, sin embargo, opciones de TCB más seguras:
+
+\subsubsection{Imprimirlos}
+
+Una forma clásica de proteger los logs era imprimirlos de forma continua y ordenada. Sin embargo, el sistema que se use para la impresión debe darle prioridad a los logs para que la impresora no se vea sobrecargada.
+Un análisis de actividades sospechosas es mucho más difı́cil.
+Se puede comprometer la impresora o las impresiones.
+
+\subsubsection{Write Once Read Multiple (WORM)}
+Son discos ópticos de poco ancho de banda de escritura. Dichos discos se extraen una vez que
+están llenos. Se puede comprometer la integridad si se sustituyen uno o más discos. Además, es impráctico si el volumen de datos y cantidad de consultas es alto.
+
+\subsubsection{Remote Logging}
+Consiste en enviar los registros a otros equipos que los resguarden. Con esta medida el atacante deberá conocer y vulnerar todos estos equipos para poder ocultar el ataque. En este caso, hay que analizar el costo de un servidor externo, y la latencia y disponibilidad, asumiendo que los logs quieren ser consultados frecuentemente. Ademas, como se mencionó, esto no garantiza seguridad necesariamente, dado que el servidor externo podría ser vulnerado también, y vuelve la seguridad de este host un asunto crı́tico.
+
+Se puede llegar a combinar con replicación local, si se desea tener acceso rápido, para un uso de los logs distinto a auditoría, como puede ser estadísticas de uso.
+
+
+\subsection{MAC}
+Un Message Authentication Code es un mensaje asociado a un otro mensaje original que se envía junto a este último para asegurar su integridad y autenticidad. Dado el original, y una clave necesariamente conocida por ambas partes, se calcula el MAC, y se lo envía con el original, de modo que el recipiente puede, con la clave, regenerar el MAC a partir del mensaje y verificar que coincidan.	Se parte de la hipótesis de que adivinar la clave secreta a partir del mensaje y el MAC no es posible en el corto plazo.
+
+Planteamos entonces que se podría usar MACs para asegurar nuestros logs. Aunque los MACs se usen normalmente en un contexto de una comunicación, podemos pensar los logs como mensajes unilaterales que se leen y verifican mucho después de ser emitidos.
+
+Se calcula un MAC para cada log usando un secreto y se lo loggea junto al mensaje original. Esto permite impedir que, en desconocimiento de ese secreto, el atacante pueda modificar el log.
+
+Sin embargo, en ausencia de un continuo uso de remote logging, este mecanismo
+no asegura la integridad de los registros viejos. Esto se debe a que el secreto es usado en el sistema que realiza el logging. 
+Si este se compromete, también se obtiene el secreto.
+
+
+\subsection{Forward Integrity}
+
+Nuestro objetivo es entonces generar un MAC para cada línea de log, que no puedan
+ser modificados sin que quede en evidencia ante una auditoría, inclusive si el sistema que genera
+los logs es comprometido.
+Una entrada del log consiste de un timestamp y el contenido. Como ya se sugirió, un atacante puede intentar comprometer la integridad de los logs para ocultar sus acciones. Podría querer modificar o borrar las entradas relevantes a su ataque.
+Para evitar que, inclusive ante el comprosimo del sistema de logging, la integridad de los logs se mantenga, no utilizaremos un único secreto a lo largo del tiempo, sino que iremos actualizando las claves. La idea es que, aunque el atacante posea el secreto en un cierto momento, no podrá obtener ninguno de los secretos anteriores, con lo que no podría modificar correctamente los logs previos a ese momento. Esta propiedad se llama forward integrity.
+
+El algoritmo, sin entrar en detalles, se trata de actualizar los secretos de manera no reversible de forma que el atacante, si compromete el sistema y obtiene el secreto de ese momento, no pueda obtener los anteriores.
+
+La verificación se puede hacer con el secreto inicial, y regenerando programáticamente los siguientes secretos, y asi validando los MACs.
+
+Esto habilita el debate respecto al secreto inicial. Si el secreto inicial es comprometido, el atacante podría modificar los logs arbitrariamente, sin que falle cuando se lo valide. Entonces, el secreto inicial (ni ninguno de los subsiguientes) no debe ser guardado en la memoria del programa de logging, y, en realidad, tampoco debería estar en el sistema, dado que el atacante podría modificarlo o borrarlo. Éste debe estar preferentemente guardado offline, ya que estamos asumiendo un compromiso total del sistema, posiblemente en un medio físico como papel o un disco sin conexión.
+
+Es también importante asegurar que el método de generar los MACs y los secretos sean seguros.
+
+También es importante considerar cada cuanto cambiar el secreto. El período mínimo es de una entrada, que implica generar un nuevo secreto por cada línea. Esto tiene la ventaja de que si el atacante obtiene el secreto, sólo puede afectar las entradas a partir de la más reciente. Si decidimos usar un período mayor, habrá entradas previas que usen el mismo secreto para generar su MAC, que quiere decir que el atacante podrá modificarlas sin problema. Sin embargo, es menos costoso utilizar un período más grande, especialmente si consideramos que los sistemas modernos tienen logs de tamaños considerables.
+
+Para manejar períodos mayores, se pueden introducir ciertas reglas para hacer más seguro el sistema, como puede ser obligatoriamente cambiar el secreto luego de una entrada de log de nivle crítico.
+
+
+Este sistema deja implı́cito que debe existir un secreto inicial y si
+este se compromete se pierde la seguridad. Por esto el secreto inicial
+debe estar guardado en un lugar seguro.
+I A la hora de verificar el estado de un registro en particular se debe
+calcular su clave en la cadena de hash. Al log guardado se le aplica
+la función no reversibles y se calcula el MAC. Si este no coincide con
+el almacenado, el registro fue modificado.
+I Es igualmente válido utilizar una clave aleatoria para cada entrada en
+el registro. Problema: Se deben guardar todas las claves utilizadas.
